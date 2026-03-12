@@ -1,6 +1,6 @@
 from http.client import responses
 
-from django.contrib import messages   
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from core.models import Eventos
 from django.contrib.auth.decorators import login_required
@@ -19,6 +19,29 @@ def login_user(request):
 def logout_user(request):
    logout(request)
    return redirect('/')
+@login_required(login_url='/login/')
+def evento(request):
+    return render(request,'evento.html')
+@login_required(login_url='/login/')
+def submit_evento(request):
+    if request.method == 'POST':
+        titulo = request.POST['evento']
+        data_evento =request.POST['data_evento']
+
+        descricao =request.POST['description']
+        usuario =request.user
+
+        Eventos.objects.create(
+            titulo = titulo,
+            data_evento = data_evento,
+            descricao = descricao,
+            usuario = usuario
+
+        )
+
+
+
+    return redirect('/')
 
 
 
