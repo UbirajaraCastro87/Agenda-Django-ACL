@@ -17,3 +17,5 @@ class Eventos(models.Model):
     def __str__(self):
         return self.titulo
 
+    def get_data_criacao(self):
+        return self.data_criacao.strftime('%d/%m/%Y %H:%M')
