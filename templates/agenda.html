@@ -10,7 +10,9 @@
 <a href="/agenda/evento">Eventos</a>
 <ul>
         {% for eventos in eventos %}
-<li>{{ eventos.titulo }} - {{  eventos.data_criacao }}</li>
+<li>{{ eventos.id }}-{{ eventos.titulo }} - {{  eventos.data_criacao }}
+    (<a href="evento/?id={{ eventos.id }}">Editar</a>  / <a href="evento/delete/{{ eventos.id }}">Excluir</a> )
+</li>
         {% endfor %}
 </ul>
 </body>

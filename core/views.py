@@ -60,13 +60,25 @@ def submit_login(request):
 
     return redirect('/')
 
-@login_required(login_url='/login/')
 
 def lista_eventos(request):
     usuario = request.user
-    #eventos = Eventos.objects.filter(usuario=usuario)
+    # eventos = Eventos.objects.filter(usuario=usuario)
     eventos = Eventos.objects.all()
+    id_evento = request.GET.get('id')
+    dados = {}
+    if id_evento:
+        dados['eventos'] = Eventos.objects.get(id=id_evento)
 
-    dados = {'eventos': eventos}
+    return render(request, 'agenda.html', dados)
 
-    return  render(request,'agenda.html',dados)
+@login_required(login_url='/login/')
+def delete_evento(request, id_evento):
+    usuario = request.user
+    evento = Eventos.objects.get(id=id_evento)
+
+    # Verifica se o evento pertence ao usuário
+    if evento.usuario == usuario:
+        evento.delete()
+
+    return redirect('/agenda/')

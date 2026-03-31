@@ -2,15 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Eventos </title>
+    <title>Eventos</title>
 </head>
 <body>
-<h2>Eventos </h2>
-<form action="submit" method="POST">{% csrf_token %}
-    <input type="text" name="evento" >
-    <input type="date" name="data_evento">
-    <textarea name="description"></textarea>
+<h2>Eventos</h2>
+<form action="submit" method="POST">
+    {% csrf_token %}
+
+    <!-- Imprime o dicionário inteiro (debug) -->
+
+
+    <!-- Se houver um evento específico -->
+    <input type="text" name="evento"
+           value="{{ evento.titulo|default:'UNK' }}">
+
+    <input type="date" name="data_evento"
+           value="{{ evento.data_evento|date:'Y-m-d'|default:'' }}">
+
+    <textarea name="description">{{ evento.description|default:'' }}</textarea>
+
     <input type="submit">
 </form>
+
+
 </body>
 </html>
